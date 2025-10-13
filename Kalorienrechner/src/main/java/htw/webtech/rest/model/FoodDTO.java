@@ -1,4 +1,3 @@
 package htw.webtech.rest.model;
 
-public record FoodDTO() {
-}
+public record FoodDTO(String name, double calories) { }
