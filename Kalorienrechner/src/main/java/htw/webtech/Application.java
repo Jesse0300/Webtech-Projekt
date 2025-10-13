@@ -1,4 +1,4 @@
-package htw.webtech.todo.app;
+package htw.webtech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
