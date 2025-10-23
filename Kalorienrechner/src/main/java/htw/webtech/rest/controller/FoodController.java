@@ -16,11 +16,13 @@ public class FoodController {
     private final FoodService foodService;
 
     public FoodController(FoodService foodService) {
+
         this.foodService = foodService;
     }
 
     @GetMapping("/foods")
     public ResponseEntity<List<FoodDTO>> getFoods() {
+
         return ResponseEntity.ok(foodService.getAllFoods());
     }
 }
