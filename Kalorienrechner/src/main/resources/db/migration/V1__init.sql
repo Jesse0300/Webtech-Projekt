@@ -47,5 +47,8 @@ BEGIN
     WHERE schemaname='public' AND indexname='ux_meal_item_unique'
   ) THEN
 CREATE UNIQUE INDEX ux_meal_item_unique ON meal_item(meal_id, food_id);
+
+ALTER TABLE public.meal
+DROP COLUMN IF EXISTS meal_type;
 END IF;
 END $$;

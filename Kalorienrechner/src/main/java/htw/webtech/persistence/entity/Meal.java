@@ -19,8 +19,6 @@ public class Meal {
 
     private LocalDateTime dateTime;
 
-    @Enumerated(EnumType.STRING)
-    private MealType mealType;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
