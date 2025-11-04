@@ -15,11 +15,20 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 200)
     private String name;
-    private Double calories; // kcal per 100g
-    private Double protein;  // g
-    private Double carbs;    // g
-    private Double fat;      // g
+
+    @Column(name = "calories") // kcal je 100g
+    private Double calories;
+
+    @Column(name = "protein", nullable = false)
+    private Double protein;
+
+    @Column(name = "carbs", nullable = false)
+    private Double carbs;
+
+    @Column(name = "fat", nullable = false)
+    private Double fat;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
