@@ -3,7 +3,6 @@ package htw.webtech.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 
 @Entity
 @Getter
@@ -11,25 +10,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "users") // optional, aber empfohlen
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(nullable = false, unique = true)
+    private String username;
 
-    private Integer age;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    private Double weight; // kg
-    private Double height; // cm
-
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
-
-    @Enumerated(EnumType.STRING)
-    private Goal goal;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Meal> meals;
+    @Column(nullable = false)
+    private String password;
 }
