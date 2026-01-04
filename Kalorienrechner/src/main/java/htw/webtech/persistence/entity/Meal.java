@@ -7,11 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "meal")
-public class Meal {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Meal extends BaseEntity {
 
     @Column(nullable = false)
     private LocalDate date;
@@ -20,20 +16,12 @@ public class Meal {
     @Column(name = "meal_type", nullable = false)
     private MealType mealType;
 
-    @OneToMany(
-            mappedBy = "meal",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealItem> items = new ArrayList<>();
-
-    // --------------------
-    // Getter / Setter
-    // --------------------
-
-    public Long getId() {
-        return id;
-    }
 
     public LocalDate getDate() {
         return date;
@@ -51,6 +39,14 @@ public class Meal {
         this.mealType = mealType;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public List<MealItem> getItems() {
         return items;
     }
@@ -59,7 +55,6 @@ public class Meal {
         this.items = items;
     }
 
-    // Convenience-Methoden
     public void addItem(MealItem item) {
         items.add(item);
         item.setMeal(this);
