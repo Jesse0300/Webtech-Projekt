@@ -1,29 +1,64 @@
 package htw.webtech.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Meal {
+@Table(name = "meal")
+public class Meal extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(nullable = false)
+    private LocalDate date;
 
-    private LocalDateTime dateTime;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MealType mealType;
 
+    @OneToMany(
+            mappedBy = "meal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MealItem> items = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    // --------------------
+    // Getter / Setter
+    // --------------------
 
-    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MealItem> items;
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public MealType getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
+
+    public List<MealItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<MealItem> items) {
+        this.items = items;
+    }
+
+    // Convenience-Methoden (optional, aber sauber)
+    public void addItem(MealItem item) {
+        items.add(item);
+        item.setMeal(this);
+    }
+
+    public void removeItem(MealItem item) {
+        items.remove(item);
+        item.setMeal(null);
+    }
 }
