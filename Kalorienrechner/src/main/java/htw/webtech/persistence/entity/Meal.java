@@ -7,13 +7,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "meal")
-public class Meal extends BaseEntity {
+public class Meal {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "meal_type", nullable = false)
     private MealType mealType;
 
     @OneToMany(
@@ -26,6 +30,10 @@ public class Meal extends BaseEntity {
     // --------------------
     // Getter / Setter
     // --------------------
+
+    public Long getId() {
+        return id;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -51,7 +59,7 @@ public class Meal extends BaseEntity {
         this.items = items;
     }
 
-    // Convenience-Methoden (optional, aber sauber)
+    // Convenience-Methoden
     public void addItem(MealItem item) {
         items.add(item);
         item.setMeal(this);
