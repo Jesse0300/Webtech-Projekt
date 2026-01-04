@@ -14,14 +14,20 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // 🔓 öffentlich (ohne JWT erreichbar)
                         .requestMatchers(
-                                "/api/auth/**",
                                 "/api/v1/foods/**",
-                                "/api/**"
+                                "/api/v1/categories/**",
+                                "/api/auth/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**"
                         ).permitAll()
+
+                        // 🔒 alles andere nur mit Auth
                         .anyRequest().authenticated()
                 );
 
         return http.build();
     }
+
 }
