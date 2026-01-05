@@ -85,13 +85,28 @@ public class MealService {
                     .collect(Collectors.toList());
 
             List<MealItemDTO> itemDtos = items.stream()
-                    .map(i -> new MealItemDTO(
-                            i.getId(),
-                            i.getFood().getId(),
-                            i.getFood().getName(),
-                            i.getAmount() == null ? 0.0 : i.getAmount(),
-                            round2(i.getTotalCalories() == null ? 0.0 : i.getTotalCalories())
-                    ))
+                    .map(i -> {
+                        double amount = i.getAmount() == null ? 0.0 : i.getAmount();
+                        Food f = i.getFood();
+
+                        double factor = amount / 100.0; // Faktor: Nährwerte sind pro 100g in Food gespeichert
+
+                        double calories = round2((i.getTotalCalories() == null ? 0.0 : i.getTotalCalories()));
+                        double carbs = round2(safeDouble(f.getCarbs()) * factor);
+                        double fat = round2(safeDouble(f.getFat()) * factor);
+                        double protein = round2(safeDouble(f.getProtein()) * factor);
+
+                        return new MealItemDTO(
+                                i.getId(),
+                                f.getId(),
+                                f.getName(),
+                                amount,
+                                calories,
+                                carbs,
+                                fat,
+                                protein
+                        );
+                    })
                     .toList();
 
             double total = itemDtos.stream().mapToDouble(MealItemDTO::calories).sum();
@@ -104,5 +119,9 @@ public class MealService {
 
     private double round2(double v) {
         return Math.round(v * 100.0) / 100.0;
+    }
+
+    private double safeDouble(Double v) { // Hilfsmethode
+        return v == null ? 0.0 : v;
     }
 }

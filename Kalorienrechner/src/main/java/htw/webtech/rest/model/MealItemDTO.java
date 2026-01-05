@@ -6,5 +6,8 @@ public record MealItemDTO(
         Long foodId,
         String foodName,
         double amountGrams,
-        double calories
+        double calories,
+        double carbs,
+        double fat,
+        double protein
 ) {}
