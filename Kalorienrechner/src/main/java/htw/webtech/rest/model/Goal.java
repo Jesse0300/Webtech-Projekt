@@ -1,4 +1,4 @@
-package htw.webtech.persistence.entity;
+package htw.webtech.rest.model;
 
 public enum Goal {
     WEIGHT_LOSS,

@@ -6,13 +6,10 @@ COPY gradlew ./
 COPY gradle gradle
 RUN chmod +x gradlew
 COPY build.gradle settings.gradle ./
-# optional: falls du versionskataloge o.ä. hast -> kopieren
-# COPY gradle/libs.versions.toml gradle/libs.versions.toml
 
-# resolve deps (ohne sources) für besseren Cache
+
 RUN ./gradlew --no-daemon dependencies || true
 
-# rest des codes
 COPY src src
 RUN ./gradlew --no-daemon clean bootJar
 

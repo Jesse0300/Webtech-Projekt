@@ -1,7 +1,5 @@
 package htw.webtech.rest.model;
 
-import htw.webtech.persistence.entity.MealType;
-
 import java.time.LocalDate;
 import java.util.Map;
 

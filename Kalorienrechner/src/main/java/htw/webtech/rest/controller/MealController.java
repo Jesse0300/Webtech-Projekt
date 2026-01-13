@@ -29,6 +29,16 @@ public class MealController {
     }
 
     /**
+     * Delete a meal item by id.
+     * DELETE /api/meals/items/{id}
+     */
+    @DeleteMapping("/items/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItem(@PathVariable Long id) {
+        mealService.deleteItem(id);
+    }
+
+    /**
      * Get all meals for a day grouped by mealType.
      * GET /api/meals/day?date=YYYY-MM-DD
      */

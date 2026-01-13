@@ -1,7 +1,7 @@
 package htw.webtech.persistence.repository;
 
 import htw.webtech.persistence.entity.Meal;
-import htw.webtech.persistence.entity.MealType;
+import htw.webtech.rest.model.MealType;
 import htw.webtech.persistence.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

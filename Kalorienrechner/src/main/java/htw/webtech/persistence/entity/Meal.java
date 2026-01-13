@@ -1,5 +1,6 @@
 package htw.webtech.persistence.entity;
 
+import htw.webtech.rest.model.MealType;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
