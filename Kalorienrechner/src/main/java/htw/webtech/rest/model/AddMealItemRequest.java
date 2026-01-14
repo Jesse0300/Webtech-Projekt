@@ -1,10 +1,13 @@
 package htw.webtech.rest.model;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.time.LocalDate;
 
 public record AddMealItemRequest(
-        LocalDate date,
-        MealType mealType,
-        Long foodId,
-        double amountGrams
+        @NotNull LocalDate date,
+        @NotNull MealType mealType,
+        @NotNull Long foodId,
+        @Positive double amountGrams
 ) {}
